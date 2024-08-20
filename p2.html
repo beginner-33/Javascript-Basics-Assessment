@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e8f0fe;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #3b5998;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #3b5998;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        select {
+            padding: 12px;
+            margin: 15px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #3b5998;
+            outline: none;
+        }
+
+        button {
+            background-color: #3b5998;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #324f82;
+        }
+
+        p {
+            background-color: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-top: 15px;
+        }
+
+      
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            input[type="number"],
+            input[type="text"],
+            select,
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Basics Assessment</h1>
+    <div class="container">
+        <h2>Task 1: Simple Calculator</h2>
+        <input type="number" id="num1" placeholder="Enter first number">
+        <input type="number" id="num2" placeholder="Enter second number">
+        <select id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <button onclick="calculate()">Calculate</button>
+        <p id="calculatorResult"></p>
+
+    
+        <h2>Task 2: Array Operations</h2>
+        <input type="text" id="arrayInput" placeholder="Enter numbers separated by commas">
+        <button onclick="sumEvenNumbers()">Calculate Sum of Even Numbers</button>
+        <p id="arrayResult"></p>
+
+       
+        <h2>Task 3: Object Manipulation</h2>
+        <input type="text" id="firstName" placeholder="First Name">
+        <input type="text" id="lastName" placeholder="Last Name">
+        <input type="number" id="age" placeholder="Age">
+        <button onclick="createPerson()">Create Person</button>
+        <p id="personResult"></p>
+        <button onclick="incrementAge()">Increment Age</button>
+        <p id="incrementResult"></p>
+    </div>
+
+    <script>
+
+        function calculate() {
+            let num1 = parseFloat(document.getElementById('num1').value);
+            let num2 = parseFloat(document.getElementById('num2').value);
+            const operator = document.getElementById('operator').value;
+            let result;
+
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    if (num2 !== 0) {
+                        result = num1 / num2;
+                    } else {
+                        result = 'Error: Division by zero';
+                    }
+                    break;
+                default:
+                    result = 'Invalid operator';
+            }
+
+            document.getElementById('calculatorResult').innerText = `Result: ${result}`;
+        }
+
+    
+        function sumEvenNumbers() {
+            const numbers = document.getElementById('arrayInput').value.split(',').map(Number);
+            let sum = 0;
+
+            for (let i = 0; i < numbers.length; i++) {
+                if (numbers[i] % 2 === 0) {
+                    sum += numbers[i];
+                }
+            }
+
+            document.getElementById('arrayResult').innerText = `Sum of even numbers: ${sum}`;
+        }
+
+     
+        let person;
+
+        function createPerson() {
+            person = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                age: parseInt(document.getElementById('age').value),
+                getFullName: function() {
+                    return `${this.firstName} ${this.lastName}`;
+                },
+                incrementAge: function() {
+                    this.age++;
+                }
+            };
+
+            document.getElementById('personResult').innerText = `Person: ${person.getFullName()}, Age: ${person.age}`;
+        }
+
+        function incrementAge() {
+            if (person) {
+                person.incrementAge();
+                document.getElementById('incrementResult').innerText = `New Age: ${person.age}`;
+            } else {
+                document.getElementById('incrementResult').innerText = 'Create the person first!';
+            }
+        }
+    </script>
+</body>
+</html>
